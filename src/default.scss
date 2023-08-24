@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: 'Lora', serif;
+  font-size: 1.8rem;
+  line-height: 1;
+  font-weight: 400;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body,
+#root,
+.App {
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+a:hover {
+  transition: all 0.4s ease-in-out;
+}
+
+.main {
+  height: calc(100% - 6.5rem - 5.8rem - 3px);
+  width: 100%;
+  margin: 0 auto;
+}
