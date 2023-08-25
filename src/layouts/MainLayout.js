@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../components/Header/Header';
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ children, currentUser }) => {
   return (
     <>
-      <Header />
+      <Header currentUser={currentUser} />
       <div className='main'>{children}</div>
     </>
   );
