@@ -41,7 +41,10 @@ function App() {
       <MainLayout currentUser={currentUser}>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='registration' element={<Registration />} />
+          <Route
+            path='registration'
+            element={!currentUser ? <Registration /> : <Navigate to={'/'} />}
+          />
           <Route
             path='login'
             element={!currentUser ? <Login /> : <Navigate to={'/'} />}

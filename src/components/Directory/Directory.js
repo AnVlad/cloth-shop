@@ -10,10 +10,14 @@ const Directory = () => {
     <div className='directory'>
       <div className='wrap'>
         <div className='item' style={{ backgroundImage: `url(${ShopMen})` }}>
-          <a href='*'>Shop Men</a>
+          <a href='/' onClick={(e) => e.preventDefault()}>
+            Shop Men
+          </a>
         </div>
         <div className='item' style={{ backgroundImage: `url(${ShopWomen})` }}>
-          <a href='*'>Shop Women</a>
+          <a href='/' onClick={(e) => e.preventDefault()}>
+            Shop Women
+          </a>
         </div>
       </div>
     </div>

@@ -2,28 +2,39 @@ import React from 'react';
 
 import './styles.scss';
 import Button from '../forms/Button';
-import { signInByGoogle } from '../../firebase/utils';
+import { auth, signInByGoogle } from '../../firebase/utils';
+import SignDisplay from '../SignDisplay/SignDisplay';
+import FormInput from '../forms/FormInput';
+import useField from '../../hooks/useField';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const SignIn = () => {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    try {
+      await signInWithEmailAndPassword(auth, email.value, password.value);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  const email = useField('email');
+  const password = useField('password');
+
   return (
-    <div className='sign-in'>
-      <div className='wrap'>
-        <h2>Log In</h2>
-        <div className='form-wrap'>
-          <form onSubmit={handleSubmit}>
-            <div className='social-signIn'>
-              <div className='row'>
-                <Button onClick={signInByGoogle}>Sign in with Google</Button>
-              </div>
-            </div>
-          </form>
+    <SignDisplay mainText={'Sign In'}>
+      <form onSubmit={handleSubmit}>
+        <FormInput type='email' placeholder='Email' {...email} />
+        <FormInput type='password' placeholder='Password' {...password} />
+        <Button type='submit'>Login</Button>
+        <div className='social-signIn'>
+          <div className='row'>
+            <Button onClick={signInByGoogle}>Sign in with Google</Button>
+          </div>
         </div>
-      </div>
-    </div>
+      </form>
+    </SignDisplay>
   );
 };
 
