@@ -7,6 +7,7 @@ import SignDisplay from '../SignDisplay/SignDisplay';
 import FormInput from '../forms/FormInput';
 import useField from '../../hooks/useField';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
   const handleSubmit = async (event) => {
@@ -32,6 +33,9 @@ const SignIn = () => {
           <div className='row'>
             <Button onClick={signInByGoogle}>Sign in with Google</Button>
           </div>
+        </div>
+        <div className='recover-link'>
+          <Link to='/recovery'>Reset password</Link>
         </div>
       </form>
     </SignDisplay>

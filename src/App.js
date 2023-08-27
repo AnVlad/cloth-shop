@@ -8,6 +8,7 @@ import Login from './pages/Login/Login';
 import { useEffect, useState } from 'react';
 import { auth, handleUserProfile } from './firebase/utils';
 import { onSnapshot } from 'firebase/firestore';
+import Recovery from './pages/Recovery/Recovery';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -49,6 +50,7 @@ function App() {
             path='login'
             element={!currentUser ? <Login /> : <Navigate to={'/'} />}
           />
+          <Route path='recovery' element={<Recovery />} />
         </Routes>
         <Footer />
       </MainLayout>
