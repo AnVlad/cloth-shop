@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
 import './styles.scss';
+
 import FormInput from '../forms/FormInput';
 import Button from '../forms/Button';
 import SignDisplay from '../SignDisplay/SignDisplay';
 import { auth, handleUserProfile } from '../../firebase/utils';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import useField from '../../hooks/useField';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const displayName = useField('displayName');
@@ -14,6 +17,8 @@ const Signup = () => {
   const confirmPassword = useField('confirmPassword');
 
   const [errorMessage, setErrorMessage] = useState([]);
+
+  const navigate = useNavigate();
 
   const clearFields = (onlyPasswords = false) => {
     password.onChange.clearField();
@@ -42,6 +47,8 @@ const Signup = () => {
 
       const name = displayName.value;
       await handleUserProfile(user, { displayName: name });
+
+      navigate();
     } catch (error) {
       console.log(error);
     }

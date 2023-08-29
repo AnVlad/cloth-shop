@@ -1,0 +1,5 @@
+Problems that I encounter while writing code:
+
+1. Redirect is not commited instantly when I render the page by react-router,
+ even though I get the condition variable from redux.
+(to fix it try add protective page and add by props user state)

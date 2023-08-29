@@ -2,11 +2,14 @@ import React from 'react';
 import './styles.scss';
 
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Logo from '../../assets/logo.png';
 import { auth } from '../../firebase/utils';
 
-const Header = ({ currentUser }) => {
+const Header = () => {
+  const currentUser = useSelector((state) => state.currentUser);
+
   return (
     <header className='header'>
       <div className='wrap'>
@@ -18,6 +21,9 @@ const Header = ({ currentUser }) => {
         <div className='call-to-actions'>
           {currentUser ? (
             <ul>
+              <li>
+                <Link to={'/dashboard'}>My account</Link>
+              </li>
               <li>
                 <a
                   href='/'

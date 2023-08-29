@@ -1,20 +1,24 @@
 import React from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './styles.scss';
+
 import Button from '../forms/Button';
 import { auth, signInByGoogle } from '../../firebase/utils';
 import SignDisplay from '../SignDisplay/SignDisplay';
 import FormInput from '../forms/FormInput';
 import useField from '../../hooks/useField';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { Link } from 'react-router-dom';
 
 const SignIn = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       await signInWithEmailAndPassword(auth, email.value, password.value);
+      navigate();
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +35,13 @@ const SignIn = () => {
         <Button type='submit'>Login</Button>
         <div className='social-signIn'>
           <div className='row'>
-            <Button onClick={signInByGoogle}>Sign in with Google</Button>
+            <Button
+              onClick={(event) => {
+                event.preventDefault();
+                signInByGoogle();
+              }}>
+              Sign in with Google
+            </Button>
           </div>
         </div>
         <div className='recover-link'>

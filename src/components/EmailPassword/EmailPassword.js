@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+
 import SignDisplay from '../SignDisplay/SignDisplay';
 import useField from '../../hooks/useField';
 import FormInput from '../forms/FormInput';
 import Button from '../forms/Button';
-import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../firebase/utils';
-import { useNavigate } from 'react-router-dom';
 
 const EmailPassword = () => {
   const email = useField('email');
