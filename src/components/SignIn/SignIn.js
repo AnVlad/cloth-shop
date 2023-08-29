@@ -1,26 +1,38 @@
 import React from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './styles.scss';
 
 import Button from '../forms/Button';
-import { auth, signInByGoogle } from '../../firebase/utils';
 import SignDisplay from '../SignDisplay/SignDisplay';
 import FormInput from '../forms/FormInput';
 import useField from '../../hooks/useField';
+import { useDispatch } from 'react-redux';
+import { createUserByGoogle, singInUser } from '../../redux/authUserSlice';
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const signInByGoogle = (event) => {
+    event.preventDefault();
+
+    dispatch(createUserByGoogle());
+    navigate('/');
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      await signInWithEmailAndPassword(auth, email.value, password.value);
-      navigate();
-    } catch (error) {
-      console.log(error);
+    const emailValue = email.value;
+    const passwordValue = password.value;
+
+    const result = await dispatch(
+      singInUser({ email: emailValue, password: passwordValue })
+    );
+
+    if (result.meta.requestStatus === 'fulfilled') {
+      navigate('/');
     }
   };
 
@@ -35,13 +47,7 @@ const SignIn = () => {
         <Button type='submit'>Login</Button>
         <div className='social-signIn'>
           <div className='row'>
-            <Button
-              onClick={(event) => {
-                event.preventDefault();
-                signInByGoogle();
-              }}>
-              Sign in with Google
-            </Button>
+            <Button onClick={signInByGoogle}>Sign in with Google</Button>
           </div>
         </div>
         <div className='recover-link'>

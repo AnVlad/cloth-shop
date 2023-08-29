@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 import './styles.scss';
 
 import FormInput from '../forms/FormInput';
 import Button from '../forms/Button';
 import SignDisplay from '../SignDisplay/SignDisplay';
-import { auth, handleUserProfile } from '../../firebase/utils';
 import useField from '../../hooks/useField';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { createUser } from '../../redux/authUserSlice';
 
 const Signup = () => {
+  const dispatch = useDispatch();
+
+  const loading = useSelector((state) => state.authUser.loading);
+  console.log('loading', loading);
+
   const displayName = useField('displayName');
   const email = useField('email');
   const password = useField('password');
@@ -38,22 +43,17 @@ const Signup = () => {
       return;
     }
 
-    try {
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        email.value,
-        password.value
-      );
+    const name = displayName.value;
+    const emailValue = email.value;
+    const passwordValue = password.value;
 
-      const name = displayName.value;
-      await handleUserProfile(user, { displayName: name });
+    const result = await dispatch(
+      createUser({ email: emailValue, password: passwordValue, name })
+    );
 
-      navigate();
-    } catch (error) {
-      console.log(error);
+    if (result.meta.requestStatus === 'fulfilled') {
+      navigate('/');
     }
-
-    clearFields();
   };
 
   return (

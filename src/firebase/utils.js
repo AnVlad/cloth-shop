@@ -1,16 +1,12 @@
 import app from './config';
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth } from 'firebase/auth';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 
 const auth = getAuth(app);
 
 const db = getFirestore(app);
 
-const googleProvider = new GoogleAuthProvider();
-
-const signInByGoogle = () => {
-  return signInWithPopup(auth, googleProvider);
-};
+export const googleProvider = new GoogleAuthProvider();
 
 const handleUserProfile = async (authUser, additionalData) => {
   if (!authUser) return;
@@ -42,4 +38,4 @@ const handleUserProfile = async (authUser, additionalData) => {
   return userRef;
 };
 
-export { auth, signInByGoogle, handleUserProfile };
+export { auth, handleUserProfile };
