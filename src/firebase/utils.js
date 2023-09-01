@@ -8,6 +8,15 @@ const db = getFirestore(app);
 
 export const googleProvider = new GoogleAuthProvider();
 
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
 const handleUserProfile = async (authUser, additionalData) => {
   if (!authUser) return;
 
@@ -17,17 +26,15 @@ const handleUserProfile = async (authUser, additionalData) => {
 
   const result = await getDoc(userRef);
 
-  console.log(result.exists());
-
   if (!result.exists()) {
     const { displayName, email } = authUser;
-    const timeSnap = new Date();
+    const createdDate = new Date();
 
     try {
       await setDoc(userRef, {
         displayName,
         email,
-        createdDate: timeSnap,
+        createdDate,
         ...additionalData,
       });
     } catch (error) {

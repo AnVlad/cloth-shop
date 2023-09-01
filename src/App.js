@@ -6,11 +6,9 @@ import MainLayout from './layouts/MainLayout';
 import Footer from './components/Footer/Footer';
 import Login from './pages/Login/Login';
 import { useEffect } from 'react';
-import { auth, handleUserProfile } from './firebase/utils';
-import { onSnapshot } from 'firebase/firestore';
 import Recovery from './pages/Recovery/Recovery';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser } from './redux/userSlice';
+import { checkUserAuth } from './redux/userSlice';
 import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
@@ -18,32 +16,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const authUser = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await handleUserProfile(userAuth);
-        onSnapshot(userRef, (snapshot) => {
-          const {
-            createdDate: { seconds, nanoseconds },
-          } = snapshot.data();
-
-          const updatedUser = {
-            id: snapshot.id,
-            ...snapshot.data(),
-            createdDate: { seconds, nanoseconds },
-          };
-
-          dispatch(setCurrentUser(updatedUser));
-        });
-
-        return;
-      }
-
-      dispatch(setCurrentUser(null));
-
-      return;
-    });
-
-    return () => authUser();
+    dispatch(checkUserAuth());
   }, [dispatch]);
 
   console.log(currentUser);

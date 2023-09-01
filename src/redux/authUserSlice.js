@@ -9,6 +9,7 @@ import { auth, googleProvider, handleUserProfile } from '../firebase/utils';
 
 const initialState = {
   loading: false,
+  errors: [],
 };
 
 export const createUser = createAsyncThunk(
@@ -52,7 +53,11 @@ export const resetPassword = createAsyncThunk(
 export const authUser = createSlice({
   name: 'authUser',
   initialState,
-  reducers: {},
+  reducers: {
+    clearError: (state) => {
+      return { ...state, errors: initialState.errors };
+    },
+  },
   extraReducers: (builder) => {
     const setLoadingState = (state) => {
       state.loading = true;
@@ -62,19 +67,23 @@ export const authUser = createSlice({
       state.loading = false;
     };
 
+    const setErrorState = (state, action) => {
+      state.errors.push(action.error.message);
+    };
+
     builder
       .addCase(createUser.pending, setLoadingState)
       .addCase(createUser.fulfilled, resetLoadingState)
-      .addCase(createUser.rejected, resetLoadingState)
+      .addCase(createUser.rejected, setErrorState)
       .addCase(createUserByGoogle.pending, setLoadingState)
       .addCase(createUserByGoogle.fulfilled, resetLoadingState)
-      .addCase(createUserByGoogle.rejected, resetLoadingState)
+      .addCase(createUserByGoogle.rejected, setErrorState)
       .addCase(singInUser.pending, setLoadingState)
       .addCase(singInUser.fulfilled, resetLoadingState)
-      .addCase(singInUser.rejected, resetLoadingState)
+      .addCase(singInUser.rejected, setErrorState)
       .addCase(resetPassword.pending, setLoadingState)
       .addCase(resetPassword.fulfilled, resetLoadingState)
-      .addCase(resetPassword.rejected, resetLoadingState);
+      .addCase(resetPassword.rejected, setErrorState);
   },
 });
 
