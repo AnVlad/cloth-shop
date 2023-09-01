@@ -12,14 +12,14 @@ import { checkUserAuth } from './redux/userSlice';
 import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
-  const currentUser = useSelector((state) => state.currentUser);
+  const currentUser = useSelector((state) => state.currentUser.currentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkUserAuth());
   }, [dispatch]);
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
     <>

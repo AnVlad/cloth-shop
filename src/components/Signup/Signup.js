@@ -8,7 +8,7 @@ import SignDisplay from '../SignDisplay/SignDisplay';
 import useField from '../../hooks/useField';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createUser } from '../../redux/authUserSlice';
+import { createUser } from '../../redux/userSlice';
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -48,7 +48,11 @@ const Signup = () => {
     const passwordValue = password.value;
 
     const result = await dispatch(
-      createUser({ email: emailValue, password: passwordValue, name })
+      createUser({
+        email: emailValue,
+        password: passwordValue,
+        displayName: name,
+      })
     );
 
     if (result.meta.requestStatus === 'fulfilled') {

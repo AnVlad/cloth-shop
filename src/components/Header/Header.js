@@ -2,13 +2,21 @@ import React from 'react';
 import './styles.scss';
 
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Logo from '../../assets/logo.png';
-import { auth } from '../../firebase/utils';
+import { logoutCurrentUser } from '../../redux/userSlice';
 
 const Header = () => {
-  const currentUser = useSelector((state) => state.currentUser);
+  const currentUser = useSelector((state) => state.currentUser.currentUser);
+  const dispatch = useDispatch();
+
+  console.log(currentUser);
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    dispatch(logoutCurrentUser());
+  };
 
   return (
     <header className='header'>
@@ -25,12 +33,7 @@ const Header = () => {
                 <Link to={'/dashboard'}>My account</Link>
               </li>
               <li>
-                <a
-                  href='/'
-                  onClick={(e) => {
-                    e.preventDefault();
-                    auth.signOut();
-                  }}>
+                <a href='/' onClick={handleLogout}>
                   LogOut
                 </a>
               </li>

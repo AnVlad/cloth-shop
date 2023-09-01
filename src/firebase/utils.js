@@ -17,6 +17,16 @@ export const getCurrentUser = () => {
   });
 };
 
+const getUserRef = async () => {
+  const currentUser = await getCurrentUser();
+
+  const { uid } = currentUser;
+
+  const userRef = doc(db, `users/${uid}`);
+
+  return userRef;
+};
+
 const handleUserProfile = async (authUser, additionalData) => {
   if (!authUser) return;
 
@@ -27,14 +37,17 @@ const handleUserProfile = async (authUser, additionalData) => {
   const result = await getDoc(userRef);
 
   if (!result.exists()) {
-    const { displayName, email } = authUser;
-    const createdDate = new Date();
-
     try {
+      const {
+        displayName,
+        email,
+        metadata: { createdAt },
+      } = authUser;
+
       await setDoc(userRef, {
         displayName,
         email,
-        createdDate,
+        createdAt,
         ...additionalData,
       });
     } catch (error) {
@@ -45,4 +58,4 @@ const handleUserProfile = async (authUser, additionalData) => {
   return userRef;
 };
 
-export { auth, handleUserProfile };
+export { auth, handleUserProfile, getUserRef };

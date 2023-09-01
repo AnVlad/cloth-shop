@@ -8,7 +8,7 @@ import SignDisplay from '../SignDisplay/SignDisplay';
 import FormInput from '../forms/FormInput';
 import useField from '../../hooks/useField';
 import { useDispatch } from 'react-redux';
-import { createUserByGoogle, singInUser } from '../../redux/authUserSlice';
+import { createUserByGoogle, singInUser } from '../../redux/userSlice';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -27,11 +27,11 @@ const SignIn = () => {
     const emailValue = email.value;
     const passwordValue = password.value;
 
-    const result = await dispatch(
+    const result = dispatch(
       singInUser({ email: emailValue, password: passwordValue })
     );
 
-    if (result.meta.requestStatus === 'fulfilled') {
+    if (result.meta?.requestStatus === 'fulfilled') {
       navigate('/');
     }
   };
