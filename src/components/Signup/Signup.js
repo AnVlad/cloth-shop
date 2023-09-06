@@ -13,7 +13,7 @@ import { createUser } from '../../redux/userSlice';
 const Signup = () => {
   const dispatch = useDispatch();
 
-  const loading = useSelector((state) => state.authUser.loading);
+  const loading = useSelector((state) => state.currentUser.loading);
   console.log('loading', loading);
 
   const displayName = useField('displayName');

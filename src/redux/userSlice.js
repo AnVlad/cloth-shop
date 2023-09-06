@@ -1,10 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import {
-  auth,
-  getUserRef,
-  googleProvider,
-  handleUserProfile,
-} from '../firebase/utils';
+
 import { getDoc } from 'firebase/firestore';
 import {
   createUserWithEmailAndPassword,
@@ -14,52 +9,70 @@ import {
   updateProfile,
 } from 'firebase/auth';
 
+import {
+  auth,
+  getUserRef,
+  googleProvider,
+  handleUserProfile,
+} from '../firebase/utils';
+
 const initialState = {
   currentUser: null,
   loading: false,
   errors: [],
 };
 
-const getUserData = (result) => {
-  const {
-    uid,
-    email,
-    displayName,
-    reloadUserInfo: { createdAt },
-  } = result.user;
-
-  return { uid, email, displayName, createdAt };
-};
-
 export const createUser = createAsyncThunk(
   'authUser/createUser',
   async ({ email, password, displayName }) => {
-    const result = await createUserWithEmailAndPassword(auth, email, password);
-
-    const { user } = result;
+    const { user } = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
     await updateProfile(auth.currentUser, { displayName });
 
-    await handleUserProfile(user);
+    const docSnap = await handleUserProfile(user);
 
-    return getUserData(result);
+    const userData = {
+      id: docSnap.id,
+      ...docSnap.data(),
+    };
+
+    return userData;
   }
 );
 
 export const createUserByGoogle = createAsyncThunk(
   'authUser/createUserByGoogle',
   async () => {
-    const result = await signInWithPopup(auth, googleProvider);
-    return getUserData(result);
+    const { user } = await signInWithPopup(auth, googleProvider);
+
+    const docSnap = await handleUserProfile(user);
+
+    const userData = {
+      id: docSnap.id,
+      ...docSnap.data(),
+    };
+
+    return userData;
   }
 );
 
 export const singInUser = createAsyncThunk(
   'authUser/signInUser',
   async ({ email, password }) => {
-    const result = await signInWithEmailAndPassword(auth, email, password);
+    const { user } = await signInWithEmailAndPassword(auth, email, password);
 
-    return getUserData(result);
+    const docSnap = await handleUserProfile(user);
+
+    const userData = {
+      id: docSnap.id,
+      ...docSnap.data(),
+    };
+
+    return userData;
   }
 );
 
@@ -83,12 +96,12 @@ export const checkUserAuth = createAsyncThunk(
 
     const docSnap = await getDoc(userRef);
 
-    const updatedUser = {
+    const userData = {
       id: docSnap.id,
       ...docSnap.data(),
     };
 
-    return updatedUser;
+    return userData;
   }
 );
 
@@ -126,6 +139,7 @@ export const userSlice = createSlice({
     };
 
     const setErrorState = (state, action) => {
+      state.loading = false;
       state.errors.push(action.error.message);
     };
 

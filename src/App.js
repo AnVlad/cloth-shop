@@ -10,6 +10,12 @@ import Recovery from './pages/Recovery/Recovery';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkUserAuth } from './redux/userSlice';
 import Dashboard from './pages/Dashboard/Dashboard';
+import WithAdminAuth from './hoc/WithAdminAuth';
+import AdminToolbar from './components/AdminToolbar/AdminToolbar';
+import AddProductModal from './components/AddProductModal/AddProductModal';
+import AdminLayout from './layouts/AdminLayout';
+import WithModalState from './hoc/WithModalState';
+import Admin from './pages/Admin/Admin';
 
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
@@ -23,6 +29,11 @@ function App() {
 
   return (
     <>
+      <WithModalState>
+        <AddProductModal />
+      </WithModalState>
+
+      <AdminToolbar />
       <MainLayout currentUser={currentUser}>
         <Routes>
           <Route path='/' element={<Home />} />
@@ -41,6 +52,16 @@ function App() {
           <Route
             path='dashboard'
             element={!currentUser ? <Navigate to={'/login'} /> : <Dashboard />}
+          />
+          <Route
+            path='admin'
+            element={
+              <AdminLayout>
+                <WithAdminAuth>
+                  <Admin />
+                </WithAdminAuth>
+              </AdminLayout>
+            }
           />
         </Routes>
         <Footer />

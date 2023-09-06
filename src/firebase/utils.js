@@ -1,10 +1,20 @@
 import app from './config';
 import { GoogleAuthProvider, getAuth } from 'firebase/auth';
-import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+} from 'firebase/firestore';
 
 const auth = getAuth(app);
 
 const db = getFirestore(app);
+const productsRef = collection(db, 'products');
+const getProductRefById = (id) => {
+  return;
+};
 
 export const googleProvider = new GoogleAuthProvider();
 
@@ -34,28 +44,39 @@ const handleUserProfile = async (authUser, additionalData) => {
 
   const userRef = doc(db, `users/${uid}`);
 
-  const result = await getDoc(userRef);
+  const docSnap = await getDoc(userRef);
 
-  if (!result.exists()) {
-    try {
-      const {
-        displayName,
-        email,
-        metadata: { createdAt },
-      } = authUser;
+  if (docSnap.exists()) return docSnap;
 
-      await setDoc(userRef, {
-        displayName,
-        email,
-        createdAt,
-        ...additionalData,
-      });
-    } catch (error) {
-      console.log('error while setting doc', error);
-    }
+  try {
+    const {
+      displayName,
+      email,
+      metadata: { createdAt },
+    } = authUser;
+    const userRoles = ['user'];
+
+    await setDoc(userRef, {
+      displayName,
+      email,
+      createdAt,
+      userRoles,
+      ...additionalData,
+    });
+  } catch (error) {
+    console.log('error while setting doc', error);
   }
 
-  return userRef;
+  const docSnap2 = await getDoc(userRef);
+
+  return docSnap2;
 };
 
-export { auth, handleUserProfile, getUserRef };
+export {
+  auth,
+  db,
+  productsRef,
+  getProductRefById,
+  handleUserProfile,
+  getUserRef,
+};
