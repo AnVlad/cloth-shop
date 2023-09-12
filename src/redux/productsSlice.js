@@ -6,7 +6,7 @@ const initialState = [];
 
 export const createProduct = createAsyncThunk(
   'products/createProduct',
-  async ({ name, image, price, category, uid }) => {
+  async ({ name, image, price, category, uid, description }) => {
     const createdDate = new Date().getTime();
     const adminUserUID = uid;
 
@@ -17,6 +17,7 @@ export const createProduct = createAsyncThunk(
       category,
       createdDate,
       adminUserUID,
+      description,
     };
 
     const result = await addDoc(productsRef, newProduct);
@@ -51,9 +52,9 @@ export const productsSlice = createSlice({
     const setProducts = (state, action) => {
       return action.payload;
     };
-    const logProducts = (state, action) => {
-      console.log(action.payload);
-    };
+    // const logProducts = (state, action) => {
+    //   console.log(action.payload);
+    // };
     const handleError = (state, action) => {
       console.log(action.error);
     };
@@ -66,12 +67,15 @@ export const productsSlice = createSlice({
       });
     };
 
-    builder.addCase(createProduct.fulfilled, addProduct);
-    builder.addCase(createProduct.rejected, handleError);
-    builder.addCase(setStartProducts.fulfilled, setProducts);
-    builder.addCase(setStartProducts.rejected, handleError);
-    builder.addCase(deleteProductById.fulfilled, deleteProduct);
-    builder.addCase(deleteProductById.rejected, handleError);
+    builder
+      .addCase(createProduct.fulfilled, addProduct)
+      .addCase(createProduct.rejected, handleError)
+
+      .addCase(setStartProducts.fulfilled, setProducts)
+      .addCase(setStartProducts.rejected, handleError)
+
+      .addCase(deleteProductById.fulfilled, deleteProduct)
+      .addCase(deleteProductById.rejected, handleError);
   },
 });
 

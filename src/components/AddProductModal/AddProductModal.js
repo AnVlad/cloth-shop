@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import ModalLayout from '../../layouts/ModalLayout';
-
 import './style.scss';
+
+import ModalLayout from '../../layouts/ModalLayout';
 import FormInput from '../forms/FormInput';
 import Button from '../forms/Button';
 import useField from '../../hooks/useField';
@@ -17,6 +17,7 @@ const AddProductModal = () => {
   const name = useField('name');
   const image = useField('image');
   const price = useField('price');
+  const [description, setDescription] = useState('');
 
   const [category, setCategory] = useState('mens');
 
@@ -36,6 +37,7 @@ const AddProductModal = () => {
       price: Number(price.value),
       category: category,
       uid: uid,
+      description: description,
     };
 
     dispatch(createProduct({ ...newProduct }));
@@ -46,6 +48,8 @@ const AddProductModal = () => {
   const handleCloseWindow = () => {
     dispatch(closeModal());
   };
+
+  console.log(description);
 
   return (
     <ModalLayout onClick={handleCloseWindow}>
@@ -62,6 +66,12 @@ const AddProductModal = () => {
           <FormInput type='text' label={'Name'} {...name} />
           <FormInput type='text' label={'Main image url'} {...image} />
           <FormInput type='number' label={'Price'} {...price} />
+          <textarea
+            rows='22'
+            cols='67'
+            onChange={(event) => setDescription(event.target.value)}
+          />
+          <br />
           <Button type='submit'>Add product</Button>
         </form>
       </div>

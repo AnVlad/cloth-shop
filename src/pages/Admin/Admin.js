@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { showModal } from '../../redux/modalSlice';
 import Button from '../../components/forms/Button';
-import { deleteProductById, setStartProducts } from '../../redux/productsSlice';
+import { deleteProductById } from '../../redux/productsSlice';
 
 import './style.scss';
+import { Link } from 'react-router-dom';
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -12,12 +13,7 @@ const Admin = () => {
     dispatch(showModal());
   };
 
-  const products = useSelector((state) => state.product);
-
-  useEffect(() => {
-    if (products.length > 0) return;
-    dispatch(setStartProducts());
-  }, []);
+  const products = useSelector((state) => state.products);
 
   const handleDelete = (id) => {
     dispatch(deleteProductById({ id }));
@@ -44,10 +40,13 @@ const Admin = () => {
                       return (
                         <tr key={product.id}>
                           <td>
-                            <img src={product.image} alt={product.name} />
+                            <Link to={`/product/${product.id}`}>
+                              <img src={product.image} alt={product.name} />
+                            </Link>
                           </td>
                           <td>{product.name}</td>
-                          <td>{product.price} €</td>
+                          <td> € {product.price}</td>
+
                           <td>
                             <Button onClick={() => handleDelete(product.id)}>
                               delete

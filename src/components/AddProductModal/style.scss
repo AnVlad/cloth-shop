@@ -12,4 +12,9 @@
     margin: 5px 0 15px;
     font-weight: 300;
   }
+
+  .description-field {
+    max-height: 300px;
+    overflow: auto;
+  }
 }

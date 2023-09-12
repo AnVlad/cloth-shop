@@ -16,13 +16,21 @@ import AddProductModal from './components/AddProductModal/AddProductModal';
 import AdminLayout from './layouts/AdminLayout';
 import WithModalState from './hoc/WithModalState';
 import Admin from './pages/Admin/Admin';
+import Search from './pages/Search/Search';
+import { setStartProducts } from './redux/productsSlice';
+import ProductCard from './pages/ProductCard/ProductCard';
 
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
+  const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkUserAuth());
+
+    if (products.length > 0) return;
+    dispatch(setStartProducts());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   // console.log(currentUser);
@@ -63,6 +71,10 @@ function App() {
               </AdminLayout>
             }
           />
+
+          <Route exact path='search' element={<Search />} />
+          <Route path='search/:filterType' element={<Search />} />
+          <Route path='product/:id' element={<ProductCard />} />
         </Routes>
         <Footer />
       </MainLayout>
