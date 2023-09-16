@@ -19,6 +19,7 @@ import Admin from './pages/Admin/Admin';
 import Search from './pages/Search/Search';
 import { setStartProducts } from './redux/productsSlice';
 import ProductCard from './pages/ProductCard/ProductCard';
+import Checkout from './pages/Checkout/Checkout';
 
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
@@ -61,6 +62,8 @@ function App() {
             path='dashboard'
             element={!currentUser ? <Navigate to={'/login'} /> : <Dashboard />}
           />
+          <Route path='cart' element={<Checkout />} />
+
           <Route
             path='admin'
             element={

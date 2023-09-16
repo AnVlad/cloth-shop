@@ -1,11 +1,22 @@
 import React from 'react';
 import Button from '../forms/Button';
 import { Link } from 'react-router-dom';
+import { addToCart } from '../../redux/checkoutSlice';
+import { useDispatch } from 'react-redux';
 
-const ProductItem = ({ id, name, price, image }) => {
+const ProductItem = ({ product }) => {
+  const { id, name, price, image } = product;
+
+  const dispatch = useDispatch();
+
   if (!image || !id || !name || typeof price === 'undefined') {
     return null;
   }
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+  };
+
   return (
     <div className='product'>
       <div className='product-image'>
@@ -24,7 +35,9 @@ const ProductItem = ({ id, name, price, image }) => {
 
           <li>
             <div className='add-to-cart'>
-              <Button>Add to cart</Button>
+              <Button type='button' onClick={handleAddToCart}>
+                Add to cart
+              </Button>
             </div>
           </li>
         </ul>

@@ -9,6 +9,10 @@ import { logoutCurrentUser } from '../../redux/userSlice';
 
 const Header = () => {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
+  const totalQuantity = useSelector((state) =>
+    state.checkout.reduce((total, item) => item.quantity + total, 0)
+  );
+  console.log(totalQuantity);
   const dispatch = useDispatch();
 
   console.log(currentUser);
@@ -41,6 +45,11 @@ const Header = () => {
         <div className='call-to-actions'>
           {currentUser ? (
             <ul>
+              <li>
+                <Link to='/cart'>
+                  Cart {totalQuantity > 0 && ` (${totalQuantity})`}
+                </Link>
+              </li>
               <li>
                 <Link to={'/dashboard'}>My account</Link>
               </li>

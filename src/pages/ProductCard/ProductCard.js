@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { addIndividualProduct } from '../../redux/individualProducts';
+import { addIndividualProduct } from '../../redux/individualProductsSlice';
 import Button from '../../components/forms/Button';
 
 import './style.scss';
+import { addToCart } from '../../redux/checkoutSlice';
 
 const ProductCard = () => {
   const [product, setProduct] = useState({});
@@ -24,6 +25,10 @@ const ProductCard = () => {
 
     dispatch(addIndividualProduct({ id }));
   }, [dispatch, id, individualProducts]);
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+  };
 
   if (!product?.id) {
     return <div>No product find</div>;
@@ -45,7 +50,9 @@ const ProductCard = () => {
           <li>{product?.description && product?.description}</li>
           <li>
             <div className='add-to-cart'>
-              <Button type='button'>Add to Cart</Button>
+              <Button type='button' onClick={handleAddToCart}>
+                Add to Cart
+              </Button>
             </div>
           </li>
         </ul>

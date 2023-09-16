@@ -55,7 +55,7 @@ const Products = ({ products }) => {
 
       <div className='products-list'>
         {filteredProducts.map((product) => {
-          return <ProductItem key={product.id} {...product} />;
+          return <ProductItem key={product.id} product={product} />;
         })}
       </div>
     </div>
