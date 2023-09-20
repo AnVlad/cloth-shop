@@ -7,7 +7,7 @@ import Button from '../forms/Button';
 import useField from '../../hooks/useField';
 import FormSelect from '../forms/FormSelect';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeModal } from '../../redux/modalSlice';
+import { closeProductModal } from '../../redux/modalSlice';
 import { createProduct } from '../../redux/productsSlice';
 
 const AddProductModal = () => {
@@ -42,11 +42,11 @@ const AddProductModal = () => {
 
     dispatch(createProduct({ ...newProduct }));
 
-    dispatch(closeModal());
+    dispatch(closeProductModal());
   };
 
   const handleCloseWindow = () => {
-    dispatch(closeModal());
+    dispatch(closeProductModal());
   };
 
   console.log(description);

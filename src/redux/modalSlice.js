@@ -1,19 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = false;
+const initialState = {
+  addProduct: false,
+  mobileNav: false,
+};
 
 export const modalSlice = createSlice({
   name: 'modalState',
   initialState,
   reducers: {
-    showModal: () => {
-      return true;
+    showProductModal: (state, action) => {
+      return { ...state, addProduct: true };
     },
-    closeModal: () => {
-      return false;
+    closeProductModal: (state, action) => {
+      return { ...state, addProduct: false };
+    },
+    showMobileNavModal: (state, action) => {
+      return { ...state, mobileNav: true };
+    },
+    closeMobileNavModal: (state, action) => {
+      return { ...state, mobileNav: false };
     },
   },
 });
 
-export const { showModal, closeModal } = modalSlice.actions;
+export const {
+  showProductModal,
+  closeProductModal,
+  showMobileNavModal,
+  closeMobileNavModal,
+} = modalSlice.actions;
 export default modalSlice.reducer;

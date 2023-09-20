@@ -1,10 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
-const WithModalState = ({ children }) => {
-  const modalState = useSelector((state) => state.modalState);
-
-  if (!modalState) return null;
+const WithModalState = ({ children, state }) => {
+  if (!state) return null;
 
   return <>{children}</>;
 };
