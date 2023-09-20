@@ -23,7 +23,10 @@ import ProductCard from './pages/ProductCard/ProductCard';
 import Checkout from './pages/Checkout/Checkout';
 import Payment from './pages/Payment/Payment';
 import MobileNavModal from './components/ModalComponents/MobileNavModal/MobileNavModal';
+<<<<<<< HEAD
 import AddProductModal from './components/ModalComponents/AddProductModal/AddProductModal';
+=======
+>>>>>>> 1abf45f544de97d3c3ebb6ffdaaaf5bd7921526c
 
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser);

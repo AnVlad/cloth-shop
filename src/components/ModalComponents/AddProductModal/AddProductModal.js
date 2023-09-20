@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+<<<<<<< HEAD
 
 import './style.scss';
 import useField from '../../../hooks/useField';
@@ -9,6 +10,10 @@ import ModalLayout from '../../../layouts/ModalLayout';
 import FormSelect from '../../forms/FormSelect';
 import FormInput from '../../forms/FormInput';
 import Button from '../../forms/Button';
+=======
+import { closeProductModal } from '../../redux/modalSlice';
+import { createProduct } from '../../redux/productsSlice';
+>>>>>>> 1abf45f544de97d3c3ebb6ffdaaaf5bd7921526c
 
 const AddProductModal = () => {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
