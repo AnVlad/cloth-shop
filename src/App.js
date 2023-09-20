@@ -1,18 +1,19 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import './default.scss';
+
 import Home from './pages/Homepage/Home';
 import Registration from './pages/Registration/Registration';
 import MainLayout from './layouts/MainLayout';
 import Footer from './components/Footer/Footer';
 import Login from './pages/Login/Login';
-import { useEffect } from 'react';
 import Recovery from './pages/Recovery/Recovery';
-import { useDispatch, useSelector } from 'react-redux';
 import { checkUserAuth } from './redux/userSlice';
 import Dashboard from './pages/Dashboard/Dashboard';
 import WithAdminAuth from './hoc/WithAdminAuth';
 import AdminToolbar from './components/AdminToolbar/AdminToolbar';
-import AddProductModal from './components/AddProductModal/AddProductModal';
 import AdminLayout from './layouts/AdminLayout';
 import WithModalState from './hoc/WithModalState';
 import Admin from './pages/Admin/Admin';
@@ -21,10 +22,16 @@ import { setStartProducts } from './redux/productsSlice';
 import ProductCard from './pages/ProductCard/ProductCard';
 import Checkout from './pages/Checkout/Checkout';
 import Payment from './pages/Payment/Payment';
+import MobileNavModal from './components/ModalComponents/MobileNavModal/MobileNavModal';
+import AddProductModal from './components/ModalComponents/AddProductModal/AddProductModal';
 
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const products = useSelector((state) => state.products);
+
+  const addProductState = useSelector((state) => state.modalState.addProduct);
+  const mobileNavState = useSelector((state) => state.modalState.mobileNav);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,12 +42,13 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  // console.log(currentUser);
-
   return (
     <>
-      <WithModalState>
+      <WithModalState state={addProductState}>
         <AddProductModal />
+      </WithModalState>
+      <WithModalState state={mobileNavState}>
+        <MobileNavModal />
       </WithModalState>
 
       <AdminToolbar />

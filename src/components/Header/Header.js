@@ -2,24 +2,17 @@ import React from 'react';
 import './styles.scss';
 
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
 import Logo from '../../assets/logo.png';
-import { logoutCurrentUser } from '../../redux/userSlice';
+import DesktopNav from '../Nav/DesktopNav';
+import { useDispatch } from 'react-redux';
+import { showMobileNavModal } from '../../redux/modalSlice';
 
 const Header = () => {
-  const currentUser = useSelector((state) => state.currentUser.currentUser);
-  const totalQuantity = useSelector((state) =>
-    state.checkout.reduce((total, item) => item.quantity + total, 0)
-  );
-  console.log(totalQuantity);
   const dispatch = useDispatch();
 
-  console.log(currentUser);
-
-  const handleLogout = (event) => {
-    event.preventDefault();
-    dispatch(logoutCurrentUser());
+  const handleShowMobileNav = () => {
+    dispatch(showMobileNavModal());
   };
 
   return (
@@ -30,46 +23,13 @@ const Header = () => {
             <img src={Logo} alt='logo' />
           </Link>
         </div>
-
-        <nav>
-          <ul>
-            <li>
-              <Link to='/'>Home</Link>
-            </li>
-            <li>
-              <Link to='/search'>Search</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <div className='call-to-actions'>
-          {currentUser ? (
-            <ul>
-              <li>
-                <Link to='/cart'>
-                  Cart {totalQuantity > 0 && ` (${totalQuantity})`}
-                </Link>
-              </li>
-              <li>
-                <Link to={'/dashboard'}>My account</Link>
-              </li>
-              <li>
-                <a href='/' onClick={handleLogout}>
-                  LogOut
-                </a>
-              </li>
-            </ul>
-          ) : (
-            <ul>
-              <li>
-                <Link to='/registration'>Register</Link>
-              </li>
-              <li>
-                <Link to='/login'>Login</Link>
-              </li>
-            </ul>
-          )}
+        <div className='show-menu-button'>
+          <button type='button' onClick={handleShowMobileNav}>
+            ==
+          </button>
         </div>
+
+        <DesktopNav />
       </div>
     </header>
   );

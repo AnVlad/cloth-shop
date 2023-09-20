@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { showModal } from '../../redux/modalSlice';
+import { showProductModal } from '../../redux/modalSlice';
 import Button from '../../components/forms/Button';
 import { deleteProductById } from '../../redux/productsSlice';
 
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const Admin = () => {
   const dispatch = useDispatch();
   const showModalWindow = () => {
-    dispatch(showModal());
+    dispatch(showProductModal());
   };
 
   const products = useSelector((state) => state.products);

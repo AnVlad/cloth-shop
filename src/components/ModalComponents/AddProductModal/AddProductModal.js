@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './style.scss';
 
-import ModalLayout from '../../layouts/ModalLayout';
-import FormInput from '../forms/FormInput';
-import Button from '../forms/Button';
-import useField from '../../hooks/useField';
-import FormSelect from '../forms/FormSelect';
-import { useDispatch, useSelector } from 'react-redux';
-import { closeModal } from '../../redux/modalSlice';
-import { createProduct } from '../../redux/productsSlice';
+import useField from '../../../hooks/useField';
+import { createProduct } from '../../../redux/productsSlice';
+import { closeProductModal } from '../../../redux/modalSlice';
+import ModalLayout from '../../../layouts/ModalLayout';
+import FormSelect from '../../forms/FormSelect';
+import FormInput from '../../forms/FormInput';
+import Button from '../../forms/Button';
 
 const AddProductModal = () => {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
@@ -42,11 +42,11 @@ const AddProductModal = () => {
 
     dispatch(createProduct({ ...newProduct }));
 
-    dispatch(closeModal());
+    dispatch(closeProductModal());
   };
 
   const handleCloseWindow = () => {
-    dispatch(closeModal());
+    dispatch(closeProductModal());
   };
 
   console.log(description);
