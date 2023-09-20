@@ -21,69 +21,55 @@ header {
       }
     }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      padding: 0;
-      margin: 0;
-
+    .show-menu-button {
       position: absolute;
-      right: 10px;
+      padding: 1rem;
+      left: 10px;
       top: 50%;
+
       transform: translateY(-50%);
-
-      ul,
-      ul li {
-        padding: 0;
-        margin: 0;
-      }
-
-      ul {
-        text-align: center;
-        display: flex;
-        gap: 16px;
-
-        li {
-          list-style-type: none;
-        }
-      }
-
-      a {
-        font-size: 1.8rem;
-        line-height: 1;
-        text-transform: uppercase;
-      }
     }
 
-    .call-to-actions {
-      position: absolute;
-      right: 10px;
-      top: 50%;
+    .show-menu-button {
+      display: none;
 
-      transform: translateY(-50%);
-
-      ul,
-      li {
+      button {
+        background-color: white;
+        border: none;
+        padding: 20px;
         margin: 0;
-        padding: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: 2400px) {
+  header {
+    .wrap {
+      max-width: 2600px;
+    }
+  }
+}
+
+@media (max-width: 780px) {
+  header {
+    .wrap {
+      .logo {
+        display: none;
       }
 
-      ul {
-        display: flex;
+      .show-menu-button {
+        display: block;
+      }
 
-        li {
-          list-style-type: none;
-          margin-right: 1.5rem;
+      .desktop-nav {
+        nav {
+          display: none;
+        }
 
-          &:last-child {
-            margin-right: 0;
-          }
-
-          a {
-            font-size: 1.8rem;
-            line-height: 1;
-            text-transform: uppercase;
+        .call-to-actions {
+          &-cart {
+            display: none;
           }
         }
       }

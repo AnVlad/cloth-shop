@@ -5,3 +5,11 @@
     margin: 0 auto;
   }
 }
+
+@media (min-width: 2400px) {
+  .footer {
+    .wrap {
+      max-width: 2600px;
+    }
+  }
+}

@@ -6,6 +6,24 @@ html {
   font-size: 10px;
 }
 
+@media (min-width: 1200px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 2000px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 2400px) {
+  html {
+    font-size: 18px;
+  }
+}
+
 body {
   font-family: 'Lora', serif;
   font-size: 1.8rem;
@@ -46,6 +64,10 @@ button {
   margin: 0 auto;
   // max-width: 1450px;
   // padding: 0 10px;
+
+  &-admin {
+    height: calc(100% - 6.5rem - 5.8rem - 3.6rem - 3px);
+  }
 }
 
 .modal-window {
