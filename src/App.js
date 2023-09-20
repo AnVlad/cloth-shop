@@ -20,6 +20,7 @@ import Search from './pages/Search/Search';
 import { setStartProducts } from './redux/productsSlice';
 import ProductCard from './pages/ProductCard/ProductCard';
 import Checkout from './pages/Checkout/Checkout';
+import Payment from './pages/Payment/Payment';
 
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
@@ -78,6 +79,7 @@ function App() {
           <Route exact path='search' element={<Search />} />
           <Route path='search/:filterType' element={<Search />} />
           <Route path='product/:id' element={<ProductCard />} />
+          <Route path='payment' element={<Payment />} />
         </Routes>
         <Footer />
       </MainLayout>

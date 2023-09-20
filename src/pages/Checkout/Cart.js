@@ -8,6 +8,9 @@ const Cart = ({ cartItems }) => {
   const handleContinueShopping = () => {
     navigate(-1);
   };
+  const handleToCheckout = () => {
+    navigate('/payment');
+  };
 
   return (
     <table border='0' cellPadding='0' cellSpacing='0'>
@@ -32,7 +35,7 @@ const Cart = ({ cartItems }) => {
             <Button onClick={handleContinueShopping}>Continue Shopping</Button>
           </td>
           <td>
-            <Button>Checkout</Button>
+            <Button onClick={handleToCheckout}>Checkout</Button>
           </td>
         </tr>
       </tbody>
