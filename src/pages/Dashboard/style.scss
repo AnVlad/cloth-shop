@@ -1,0 +1,30 @@
+.user-account {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  height: 100%;
+
+  padding: 4rem 1rem;
+
+  font-size: 2rem;
+
+  .user-profile {
+    margin: 20px 0 40px;
+
+    .user-information {
+      display: flex;
+
+      div {
+        flex: 1;
+        padding: 5px 10px;
+      }
+
+      .information-name {
+        max-width: 200px;
+      }
+
+      .information-data {
+      }
+    }
+  }
+}

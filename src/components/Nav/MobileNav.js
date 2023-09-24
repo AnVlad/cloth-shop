@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import './style.scss';
 
-const MobileNav = () => {
+const MobileNav = ({ showNav }) => {
   const totalQuantity = useSelector((state) =>
     state.checkout.reduce((total, item) => item.quantity + total, 0)
   );
@@ -13,7 +13,7 @@ const MobileNav = () => {
 
   return (
     <div className='mobile-nav'>
-      <nav>
+      <nav className={`${showNav ? 'mobile-nav-isShowed' : ''}`}>
         <ul>
           <li>
             <Link to='/'>Home</Link>
@@ -25,7 +25,7 @@ const MobileNav = () => {
           {user ? (
             <li>
               <Link to='/cart'>
-                Cart {totalQuantity > 0 && ` (${totalQuantity})`}
+                {`Cart (${totalQuantity > 0 && totalQuantity})`}
               </Link>
             </li>
           ) : null}

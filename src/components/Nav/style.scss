@@ -7,11 +7,12 @@
 
   nav {
     background-color: rgb(255, 255, 255);
-    width: 30vw;
+    width: 0;
+    overflow: hidden;
 
     height: 100vh;
 
-    transition: all 1s ease-in-out;
+    transition: all 1s ease-out;
 
     ul {
       display: flex;
@@ -25,12 +26,23 @@
         margin-top: 20px;
         a {
           padding: 16px 32px;
+          min-width: 55px;
         }
       }
 
       li:first-child {
         margin-top: 60px;
       }
+    }
+  }
+
+  .mobile-nav-isShowed {
+    width: 35vw;
+  }
+
+  @media (max-width: 400px) {
+    .mobile-nav-isShowed {
+      width: 100vw;
     }
   }
 }
