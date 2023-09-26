@@ -11,7 +11,7 @@ import Footer from './components/Footer/Footer';
 import Login from './pages/Login/Login';
 import Recovery from './pages/Recovery/Recovery';
 import { checkUserAuth } from './redux/userSlice';
-import Dashboard from './pages/Dashboard/Dashboard';
+import UserAccount from './pages/UserAccount/UserAccount';
 import WithAdminAuth from './hoc/WithAdminAuth';
 import AdminToolbar from './components/AdminToolbar/AdminToolbar';
 import AdminLayout from './layouts/AdminLayout';
@@ -69,7 +69,9 @@ function App() {
           />
           <Route
             path='dashboard'
-            element={!currentUser ? <Navigate to={'/login'} /> : <Dashboard />}
+            element={
+              !currentUser ? <Navigate to={'/login'} /> : <UserAccount />
+            }
           />
           <Route path='cart' element={<Checkout />} />
 

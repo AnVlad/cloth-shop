@@ -1,0 +1,39 @@
+.user-information {
+  display: flex;
+
+  div {
+    flex: 1;
+    padding: 5px 10px;
+  }
+
+  .information-name {
+    max-width: 20rem;
+    align-self: center;
+  }
+
+  .information-data {
+    display: flex;
+    justify-content: space-between;
+
+    &-name {
+      height: 3rem;
+    }
+  }
+
+  .information-data-change {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    gap: 2rem;
+
+    padding: 5px 10px;
+
+    input {
+      max-width: 400px;
+      width: 100%;
+      font-size: 2rem;
+      padding: 5px 10px;
+      height: 3rem;
+    }
+  }
+}

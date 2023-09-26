@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -11,6 +11,7 @@ import {
 
 import {
   auth,
+  db,
   getUserRef,
   googleProvider,
   handleUserProfile,
@@ -41,6 +42,17 @@ export const createUser = createAsyncThunk(
     };
 
     return userData;
+  }
+);
+
+export const updateUserData = createAsyncThunk(
+  'authUser/updateUserData',
+  async ({ newData, uid }) => {
+    const userDocRef = doc(db, `users/${uid}`);
+
+    await setDoc(userDocRef, newData, { merge: true });
+
+    return newData;
   }
 );
 
@@ -143,6 +155,10 @@ export const userSlice = createSlice({
       state.errors.push(action.error.message);
     };
 
+    const updateCurrentUser = (state, action) => {
+      state.currentUser = { ...state.currentUser, ...action.payload };
+    };
+
     builder
       .addCase(createUser.pending, setLoadingState)
       .addCase(createUser.fulfilled, setUser)
@@ -166,7 +182,10 @@ export const userSlice = createSlice({
 
       .addCase(logoutCurrentUser.pending, setLoadingState)
       .addCase(logoutCurrentUser.fulfilled, resetState)
-      .addCase(logoutCurrentUser.rejected, setErrorState);
+      .addCase(logoutCurrentUser.rejected, setErrorState)
+
+      .addCase(updateUserData.fulfilled, updateCurrentUser)
+      .addCase(updateUserData.rejected, setErrorState);
   },
 });
 

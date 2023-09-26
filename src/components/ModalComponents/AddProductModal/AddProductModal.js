@@ -66,11 +66,7 @@ const AddProductModal = () => {
           <FormInput type='text' label={'Name'} {...name} />
           <FormInput type='text' label={'Main image url'} {...image} />
           <FormInput type='number' label={'Price'} {...price} />
-          <textarea
-            rows='22'
-            cols='67'
-            onChange={(event) => setDescription(event.target.value)}
-          />
+          <textarea onChange={(event) => setDescription(event.target.value)} />
           <br />
           <Button type='submit'>Add product</Button>
         </form>

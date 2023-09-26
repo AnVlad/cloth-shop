@@ -6,6 +6,12 @@ html {
   font-size: 10px;
 }
 
+@media (max-width: 600px) {
+  html {
+    font-size: 8px;
+  }
+}
+
 @media (min-width: 1200px) {
   html {
     font-size: 10px;
@@ -84,8 +90,6 @@ button {
 }
 
 .admin-layout {
-  height: calc(100% - 6.5rem - 5.8rem - 3.6rem);
-
   position: relative;
   display: inline-block;
   width: 100%;
