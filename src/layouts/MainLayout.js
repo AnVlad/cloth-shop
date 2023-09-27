@@ -24,7 +24,7 @@ const MainLayout = ({ children, currentUser }) => {
 
     const timeout = setTimeout(() => {
       dispatch(clearErrors());
-    }, 2000);
+    }, 20000);
 
     return () => {
       clearTimeout(timeout);

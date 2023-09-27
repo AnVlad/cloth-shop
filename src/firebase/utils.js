@@ -30,7 +30,11 @@ export const getCurrentUser = () => {
 const getUserRef = async () => {
   const currentUser = await getCurrentUser();
 
+  if (!currentUser) return null;
+
   const { uid } = currentUser;
+
+  if (!uid) return null;
 
   const userRef = doc(db, `users/${uid}`);
 

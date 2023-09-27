@@ -7,14 +7,11 @@ import Button from '../forms/Button';
 import SignDisplay from '../SignDisplay/SignDisplay';
 import useField from '../../hooks/useField';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { createUser } from '../../redux/userSlice';
+import { useDispatch } from 'react-redux';
+import { createUser, createUserByGoogle } from '../../redux/userSlice';
 
 const Signup = () => {
   const dispatch = useDispatch();
-
-  const loading = useSelector((state) => state.currentUser.loading);
-  console.log('loading', loading);
 
   const displayName = useField('displayName');
   const email = useField('email');
@@ -60,6 +57,13 @@ const Signup = () => {
     }
   };
 
+  const signUpByGoogle = (event) => {
+    event.preventDefault();
+
+    dispatch(createUserByGoogle());
+    navigate('/');
+  };
+
   return (
     <SignDisplay mainText={'Signup'}>
       {errorMessage.length > 0 && (
@@ -85,6 +89,12 @@ const Signup = () => {
           />
 
           <Button>Register</Button>
+
+          <div className='social-signIn'>
+            <div className='row'>
+              <Button onClick={signUpByGoogle}>Sign up with Google</Button>
+            </div>
+          </div>
         </form>
       </div>
     </SignDisplay>

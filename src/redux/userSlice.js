@@ -106,7 +106,11 @@ export const checkUserAuth = createAsyncThunk(
   async () => {
     const userRef = await getUserRef();
 
+    if (!userRef) return;
+
     const docSnap = await getDoc(userRef);
+
+    if (!docSnap) return;
 
     const userData = {
       id: docSnap.id,
@@ -157,6 +161,7 @@ export const userSlice = createSlice({
 
     const setErrorState = (state, action) => {
       state.loading = false;
+      console.log(action.error);
       state.errors.push(action.error.message);
     };
 
