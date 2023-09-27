@@ -14,7 +14,7 @@ import { checkUserAuth } from './redux/userSlice';
 import UserAccount from './pages/UserAccount/UserAccount';
 import WithAdminAuth from './hoc/WithAdminAuth';
 import AdminToolbar from './components/AdminToolbar/AdminToolbar';
-import AdminLayout from './layouts/AdminLayout';
+import UserLayout from './layouts/UserLayout';
 import WithModalState from './hoc/WithModalState';
 import Admin from './pages/Admin/Admin';
 import Search from './pages/Search/Search';
@@ -70,7 +70,13 @@ function App() {
           <Route
             path='dashboard'
             element={
-              !currentUser ? <Navigate to={'/login'} /> : <UserAccount />
+              !currentUser ? (
+                <Navigate to={'/login'} />
+              ) : (
+                <UserLayout>
+                  <UserAccount />
+                </UserLayout>
+              )
             }
           />
           <Route path='cart' element={<Checkout />} />
@@ -78,11 +84,11 @@ function App() {
           <Route
             path='admin'
             element={
-              <AdminLayout>
+              <UserLayout>
                 <WithAdminAuth>
                   <Admin />
                 </WithAdminAuth>
-              </AdminLayout>
+              </UserLayout>
             }
           />
 

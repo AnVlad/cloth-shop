@@ -132,8 +132,13 @@ export const userSlice = createSlice({
     setCurrentUser: (state, action) => {
       return (state.currentUser = action.payload);
     },
-    clearError: (state) => {
-      return { ...state, errors: initialState.errors };
+    clearErrors: (state) => {
+      state.errors = [...initialState.errors];
+    },
+    deleteError: (state, action) => {
+      state.errors = [
+        ...state.errors.filter((error, index) => index !== action.payload),
+      ];
     },
   },
   extraReducers: (builder) => {
@@ -189,5 +194,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setCurrentUser } = userSlice.actions;
+export const { setCurrentUser, clearErrors, deleteError } = userSlice.actions;
 export default userSlice.reducer;

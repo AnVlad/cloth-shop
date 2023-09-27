@@ -4,7 +4,7 @@ import VerticalNav from '../components/VerticalNav/VerticalNav';
 import { useDispatch } from 'react-redux';
 import { logoutCurrentUser } from '../redux/userSlice';
 
-const AdminLayout = ({ children }) => {
+const UserLayout = ({ children }) => {
   const dispatch = useDispatch();
 
   const handleSignOut = (event) => {
@@ -12,7 +12,7 @@ const AdminLayout = ({ children }) => {
     dispatch(logoutCurrentUser());
   };
   return (
-    <div className='admin-layout'>
+    <div className='user-layout'>
       <div className='sidebar'>
         <VerticalNav>
           <ul>
@@ -32,4 +32,4 @@ const AdminLayout = ({ children }) => {
   );
 };
 
-export default AdminLayout;
+export default UserLayout;

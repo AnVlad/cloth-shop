@@ -17,6 +17,7 @@ const AddProductModal = () => {
   const name = useField('name');
   const image = useField('image');
   const price = useField('price');
+
   const [description, setDescription] = useState('');
 
   const [category, setCategory] = useState('mens');
@@ -48,8 +49,6 @@ const AddProductModal = () => {
   const handleCloseWindow = () => {
     dispatch(closeProductModal());
   };
-
-  console.log(description);
 
   return (
     <ModalLayout onClick={handleCloseWindow}>

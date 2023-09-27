@@ -51,7 +51,7 @@ const UserInformation = ({ typeField, name, defaultValue, uid }) => {
         <form
           className='information-data-change'
           onSubmit={(event) => submitChanges(event, displayName.name)}>
-          <input type='text' ref={inputRef} {...displayName} />
+          <input type='text' name='name' ref={inputRef} {...displayName} />
           <button type='submit'>save</button>
         </form>
       )}
